@@ -215,7 +215,8 @@ flutter run
 
 | 微信赞赏 |
 |:---:|
-| *https://github.com/OYlili/Syncro/blob/main/mm_reward_qrcode_1771563989352.png* |
+| <img src="https://github.com/OYlili/Syncro/blob/main/mm_reward_qrcode_1771563989352.png" alt="Coke"/>
+ 
 
 **每一份支持都会转化为更好的提示词和更多的功能迭代 🚀**
 
