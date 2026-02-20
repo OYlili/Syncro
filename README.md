@@ -1,7 +1,5 @@
 <div align="center">
-
-<!-- 替换为你的实际 Logo 路径 -->
-<img src="https://github.com/OYlili/Syncro/blob/main/syncro_C_1280x720_banner.svg" width="120" alt="Syncro Logo"/>
+<img src="https://github.com/OYlili/Syncro/blob/main/syncro_C_512x512.svg" width="120" alt="Syncro Logo"/>
 
 # 🎬 Syncro
 
