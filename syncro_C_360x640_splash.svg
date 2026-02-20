@@ -1,0 +1,42 @@
+<svg width="360" height="640" viewBox="0 0 360 640" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bgC2" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#060614"/>
+      <stop offset="100%" stop-color="#0a0a1e"/>
+    </linearGradient>
+    <linearGradient id="scG2" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1a2a50"/>
+      <stop offset="100%" stop-color="#080f28"/>
+    </linearGradient>
+    <linearGradient id="pR2" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f87171" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#f87171" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="pG2" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#4ade80" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#4ade80" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="pB2" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#60a5fa" stop-opacity="0.75"/>
+      <stop offset="100%" stop-color="#60a5fa" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="360" height="640" fill="url(#bgC2)"/>
+  <rect x="40" y="180" width="280" height="176" rx="12" fill="url(#scG2)" stroke="#2a3a6a" stroke-width="3"/>
+  <polygon points="180,180 120,356 80,356" fill="url(#pR2)" opacity="0.5"/>
+  <polygon points="180,180 180,356 152,356" fill="url(#pG2)" opacity="0.4"/>
+  <polygon points="180,180 230,356 280,356" fill="url(#pB2)" opacity="0.5"/>
+  <rect x="40" y="180" width="280" height="176" rx="12" fill="none" stroke="#4a6aaa" stroke-width="2" opacity="0.5"/>
+  <circle cx="180" cy="268" r="42" fill="#08101e" fill-opacity="0.75" stroke="#4060aa" stroke-width="2"/>
+  <polygon points="166,244 216,268 166,292" fill="white" opacity="0.93"/>
+  <rect x="154" y="356" width="52" height="8" rx="4" fill="#1a2a50"/>
+  <rect x="130" y="360" width="100" height="7" rx="3.5" fill="#1a2a50"/>
+  <text x="180" y="456" text-anchor="middle"
+        font-family="'Space Grotesk', Georgia, sans-serif"
+        font-size="34" font-weight="700" letter-spacing="7"
+        fill="#ffffff" opacity="0.88">SYNCRO</text>
+  <text x="180" y="480" text-anchor="middle"
+        font-family="'DM Sans', Arial, sans-serif"
+        font-size="11" font-weight="300" letter-spacing="3.5"
+        fill="#4060a0" opacity="0.7">局域网 · 影院</text>
+</svg>

@@ -1,0 +1,46 @@
+<svg width="1280" height="720" viewBox="0 0 1280 720" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bannerC" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#060614"/>
+      <stop offset="100%" stop-color="#0a0a1e"/>
+    </linearGradient>
+    <linearGradient id="bannerSc" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" stop-color="#1a2a50"/>
+      <stop offset="100%" stop-color="#080f28"/>
+    </linearGradient>
+    <linearGradient id="bpR" x1="0%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#f87171" stop-opacity="0.7"/>
+      <stop offset="100%" stop-color="#f87171" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="bpG" x1="0%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#4ade80" stop-opacity="0.6"/>
+      <stop offset="100%" stop-color="#4ade80" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="bpB" x1="0%" y1="0%" x2="50%" y2="100%">
+      <stop offset="0%" stop-color="#60a5fa" stop-opacity="0.75"/>
+      <stop offset="100%" stop-color="#60a5fa" stop-opacity="0"/>
+    </linearGradient>
+    <linearGradient id="bpl" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#bfdbfe"/>
+    </linearGradient>
+  </defs>
+  <rect width="1280" height="720" fill="url(#bannerC)"/>
+  <rect x="60" y="160" width="440" height="280" rx="18" fill="url(#bannerSc)" stroke="#2a3a6a" stroke-width="5"/>
+  <polygon points="280,160 190,440 130,440" fill="url(#bpR)" opacity="0.5"/>
+  <polygon points="280,160 280,440 240,440" fill="url(#bpG)" opacity="0.4"/>
+  <polygon points="280,160 358,440 430,440" fill="url(#bpB)" opacity="0.5"/>
+  <rect x="60" y="160" width="440" height="280" rx="18" fill="none" stroke="#4a6aaa" stroke-width="2.5" opacity="0.5"/>
+  <circle cx="280" cy="300" r="64" fill="#08101e" fill-opacity="0.8" stroke="#4060aa" stroke-width="2.5"/>
+  <polygon points="260,264 330,300 260,336" fill="url(#bpl)" opacity="0.95"/>
+  <rect x="248" y="440" width="64" height="12" rx="6" fill="#1a2a50"/>
+  <rect x="210" y="448" width="140" height="10" rx="5" fill="#1a2a50"/>
+  <text x="580" y="290"
+        font-family="'Space Grotesk', Georgia, sans-serif"
+        font-size="96" font-weight="700" letter-spacing="12"
+        fill="#ffffff" opacity="0.92">SYNCRO</text>
+  <text x="582" y="348"
+        font-family="'DM Sans', Arial, sans-serif"
+        font-size="22" font-weight="300" letter-spacing="6"
+        fill="#4060a0" opacity="0.75">局域网 · 影院 · SYNC · PLAY · TOGETHER</text>
+</svg>
