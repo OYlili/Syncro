@@ -1,0 +1,9 @@
+gradle.projectsLoaded {
+    rootProject.allprojects {
+        tasks.configureEach {
+            if (name == 'downloadDependencies') {
+                enabled = false
+            }
+        }
+    }
+}
