@@ -716,8 +716,8 @@ class SyncProvider extends ChangeNotifier {
         _videoServer!.switchVideo(firstVideoPath);
         _currentVideoUrl = _videoServer!.videoUrl;
         
-        if (_player != null && _currentVideoUrl != null) {
-          await _player!.open(Media(_currentVideoUrl!));
+        if (_playerProvider != null) {
+          await _playerProvider!.loadVideo(_currentVideoUrl!);
         }
       }
     }
@@ -737,6 +737,91 @@ class SyncProvider extends ChangeNotifier {
     return true;
   }
 
+  Future<bool> addFiles(List<String> filePaths) async {
+    if (_role != SyncRole.host) return false;
+    
+    final newItems = <PlaylistItem>[];
+    final fileNames = <String>[];
+    final currentMaxId = _playlist.items.isEmpty ? -1 : _playlist.items.map((item) => item.id).reduce((a, b) => a > b ? a : b);
+    
+    for (int i = 0; i < filePaths.length; i++) {
+      final path = filePaths[i];
+      final name = path.split(Platform.pathSeparator).last;
+      final item = PlaylistItem(
+        id: currentMaxId + 1 + i,
+        name: name,
+        path: path,
+        addedAt: DateTime.now(),
+      );
+      newItems.add(item);
+      fileNames.add(name);
+      _videoPaths[currentMaxId + 1 + i] = path;
+    }
+    
+    final updatedItems = List<PlaylistItem>.from(_playlist.items)..addAll(newItems);
+    final updatedIndex = _playlist.currentIndex;
+    
+    _playlist = VideoPlaylist(items: updatedItems, currentIndex: updatedIndex);
+    
+    _videoServer ??= VideoStreamServer();
+    if (!_videoServer!.isRunning) {
+      await _videoServer!.startServerOnly();
+    }
+    
+    if (_playlist.currentIndex == -1 && newItems.isNotEmpty) {
+      final firstNewVideoPath = filePaths.first;
+      if (firstNewVideoPath.isNotEmpty) {
+        _videoServer!.switchVideo(firstNewVideoPath);
+        _currentVideoUrl = _videoServer!.videoUrl;
+        _playlist = _playlist.copyWith(currentIndex: _playlist.items.length - newItems.length);
+        
+        if (_playerProvider != null && _currentVideoUrl != null) {
+          await _playerProvider!.loadVideo(_currentVideoUrl!);
+        }
+      }
+    }
+    
+    if (_server != null) {
+      final message = SyncMessage.playlist(_playlist.toSyncJson(), currentIndex: _playlist.currentIndex);
+      _server!.broadcastControl(message);
+      
+      final syncMessage = SyncMessage.playlistSync(_playlist.items.map((item) => item.name).toList());
+      _server!.broadcastControl(syncMessage);
+      
+      broadcastPlaylistUpdate();
+    }
+    
+    _addSystemMessage('已添加 ${newItems.length} 个视频到播放列表');
+    notifyListeners();
+    return true;
+  }
+
+  Future<bool> clearPlaylist() async {
+    if (_role != SyncRole.host) return false;
+    
+    _playlist = const VideoPlaylist();
+    _videoPaths.clear();
+    _currentVideoUrl = null;
+    
+    if (_playerProvider != null) {
+      await _playerProvider!.unloadVideo();
+    }
+    
+    if (_server != null) {
+      final message = SyncMessage.playlist([], currentIndex: -1);
+      _server!.broadcastControl(message);
+      
+      final syncMessage = SyncMessage.playlistSync([]);
+      _server!.broadcastControl(syncMessage);
+      
+      broadcastPlaylistUpdate();
+    }
+    
+    _addSystemMessage('播放列表已清空');
+    notifyListeners();
+    return true;
+  }
+
   Future<bool> switchToEpisode(int index) async {
     if (_role != SyncRole.host) return false;
     if (index < 0 || index >= _playlist.items.length) return false;
@@ -751,8 +836,8 @@ class SyncProvider extends ChangeNotifier {
       _currentVideoUrl = _videoServer!.videoUrl;
     }
     
-    if (_player != null && _currentVideoUrl != null) {
-      await _player!.open(Media(_currentVideoUrl!));
+    if (_playerProvider != null && _currentVideoUrl != null) {
+      await _playerProvider!.loadVideo(_currentVideoUrl!);
     }
     
     if (_server != null) {

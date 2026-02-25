@@ -1374,31 +1374,8 @@ class _PlayerRoomPageState extends State<PlayerRoomPage> with WidgetsBindingObse
         
         if (paths.isEmpty) return;
         
-        if (paths.length == 1) {
-          final path = paths.first;
-          _currentVideoName = result.files.first.name;
-          
-          await _playerProvider.loadVideo(path);
-          _startWatchTimer();
-          
-          if (_syncProvider.isHost) {
-            final success = await _syncProvider.startVideoStream(
-              path,
-              videoName: _currentVideoName,
-            );
-            
-            await _syncProvider.setPlaylist(paths);
-            
-            if (!success && mounted) {
-              ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text('启动视频流服务失败')),
-              );
-            }
-          }
-        } else {
-          _currentVideoName = result.files.first.name;
-          
-          if (_syncProvider.isHost) {
+        if (_syncProvider.isHost) {
+          if (_syncProvider.playlist.isEmpty) {
             final success = await _syncProvider.setPlaylist(paths);
             if (success) {
               _startWatchTimer();
@@ -1408,9 +1385,16 @@ class _PlayerRoomPageState extends State<PlayerRoomPage> with WidgetsBindingObse
               );
             }
           } else {
-            await _playerProvider.loadVideo(paths.first);
-            _startWatchTimer();
+            final success = await _syncProvider.addFiles(paths);
+            if (!success && mounted) {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('添加视频失败')),
+              );
+            }
           }
+        } else {
+          await _playerProvider.loadVideo(paths.first);
+          _startWatchTimer();
         }
       }
     } catch (e) {

@@ -64,6 +64,12 @@ class PlaylistWidget extends StatelessWidget {
             ),
           ),
           const Spacer(),
+          if (sync.isHost && sync.playlist.isNotEmpty)
+            IconButton(
+              icon: const Icon(Icons.delete_sweep_outlined, size: 20),
+              onPressed: () => _showClearPlaylistDialog(context, sync),
+              tooltip: '清除列表',
+            ),
           if (sync.isHost)
             TextButton.icon(
               icon: const Icon(Icons.add, size: 18),
@@ -278,7 +284,11 @@ class PlaylistWidget extends StatelessWidget {
         final paths = result.paths.whereType<String>().toList();
         debugPrint('Selected ${paths.length} videos');
         if (paths.isNotEmpty) {
-          await sync.setPlaylist(paths);
+          if (sync.playlist.isEmpty) {
+            await sync.setPlaylist(paths);
+          } else {
+            await sync.addFiles(paths);
+          }
         }
       }
     } catch (e) {
@@ -288,6 +298,36 @@ class PlaylistWidget extends StatelessWidget {
           SnackBar(content: Text('选择视频失败: $e')),
         );
       }
+    }
+  }
+
+  Future<void> _showClearPlaylistDialog(BuildContext context, SyncProvider sync) async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        backgroundColor: const Color(0xFF1a1a2e),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        title: const Text('清除播放列表', style: TextStyle(color: Colors.white)),
+        content: const Text(
+          '确定要清除全部视频吗？此操作不可恢复。',
+          style: TextStyle(color: Colors.white70),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, false),
+            child: const Text('取消', style: TextStyle(color: Colors.white54)),
+          ),
+          TextButton(
+            onPressed: () => Navigator.pop(ctx, true),
+            style: TextButton.styleFrom(foregroundColor: Colors.redAccent),
+            child: const Text('清除'),
+          ),
+        ],
+      ),
+    );
+
+    if (confirmed == true && context.mounted) {
+      await sync.clearPlaylist();
     }
   }
 
